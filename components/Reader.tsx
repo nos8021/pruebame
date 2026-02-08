@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { PDFFile, AppState } from '../types';
+import { PDFFile, AppState } from '../types.ts';
 import * as pdfjsLib from 'https://esm.sh/pdfjs-dist@4.0.379';
 
 pdfjsLib.GlobalWorkerOptions.workerSrc = `https://esm.sh/pdfjs-dist@4.0.379/build/pdf.worker.min.mjs`;
@@ -16,7 +16,6 @@ export const Reader: React.FC<ReaderProps> = ({ file, onBack, onStateChange, sta
   const [scrollSpeed, setScrollSpeed] = useState(1.0);
   const [pages, setPages] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [zoomLevel, setZoomLevel] = useState(1.0);
   const scrollRef = useRef<number | null>(null);
   const preciseScrollY = useRef<number>(0);
 
@@ -93,7 +92,6 @@ export const Reader: React.FC<ReaderProps> = ({ file, onBack, onStateChange, sta
   return (
     <div className={`relative min-h-screen select-none transition-colors duration-700 ${isDarkMode ? 'bg-[#0a0a0a]' : 'bg-[#f8f8f5]'}`}>
       
-      {/* CAPA DE DETENCIÓN (OCULTA HASTA QUE SE SCROLLEA) */}
       {state === AppState.SCROLLING && (
         <div 
           className="fixed inset-0 z-[2000] cursor-pointer"
@@ -102,7 +100,6 @@ export const Reader: React.FC<ReaderProps> = ({ file, onBack, onStateChange, sta
         />
       )}
 
-      {/* CONTROLES SUPERIORES */}
       <div className={`fixed inset-x-0 top-0 z-[2100] p-6 flex justify-between items-start pointer-events-none transition-all duration-500 ${state === AppState.SCROLLING ? 'opacity-0 -translate-y-4' : 'opacity-100 translate-y-0'}`}>
         <button 
           onClick={onBack}
@@ -127,7 +124,6 @@ export const Reader: React.FC<ReaderProps> = ({ file, onBack, onStateChange, sta
         </div>
       </div>
 
-      {/* BOTÓN PLAY */}
       <div className={`fixed bottom-12 left-1/2 -translate-x-1/2 z-[2100] transition-all duration-700 ${state === AppState.SCROLLING ? 'opacity-0 scale-90 pointer-events-none' : 'opacity-100 scale-100 pointer-events-auto'}`}>
         <button 
           onClick={toggleScroll}
@@ -143,7 +139,6 @@ export const Reader: React.FC<ReaderProps> = ({ file, onBack, onStateChange, sta
         </button>
       </div>
 
-      {/* CONTENIDO PDF */}
       <div className="max-w-4xl mx-auto pt-12 pb-40 px-4">
         <div className="space-y-12">
           {pages.map((pageUrl, idx) => (
@@ -157,7 +152,6 @@ export const Reader: React.FC<ReaderProps> = ({ file, onBack, onStateChange, sta
         </div>
       </div>
 
-      {/* BARRA PROGRESO */}
       <div className={`fixed top-0 left-0 w-full h-1 z-[2200] ${isDarkMode ? 'bg-white/5' : 'bg-gray-100'}`}>
         <div 
           className={`h-full transition-all duration-200 ${isDarkMode ? 'bg-white' : 'bg-black'}`}
