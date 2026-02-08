@@ -1,9 +1,9 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { Header } from './components/Header';
-import { FileUploader } from './components/FileUploader';
-import { Reader } from './components/Reader';
-import { PDFFile, AppState } from './types';
-import { getAllPDFs, savePDF, deletePDF, StoredPDF } from './services/dbService';
+import { Header } from './components/Header.tsx';
+import { FileUploader } from './components/FileUploader.tsx';
+import { Reader } from './components/Reader.tsx';
+import { PDFFile, AppState } from './types.ts';
+import { getAllPDFs, savePDF, deletePDF, StoredPDF } from './services/dbService.ts';
 
 const App: React.FC = () => {
   const [currentFile, setCurrentFile] = useState<PDFFile | null>(null);
